@@ -1,0 +1,35 @@
+# ─── Build output ───────────────────────────────────────────
+dist/
+dist-ssr/
+
+# ─── Dependencies ───────────────────────────────────────────
+node_modules/
+
+# ─── Environment – secrets (never commit these) ─────────────
+.env.local
+.env.*.local
+
+# .env.production is safe to commit (no secrets, only public config)
+# .env.example is safe to commit (template only)
+
+# ─── Logs ───────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ─── Editor / OS ────────────────────────────────────────────
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.idea/
+.vscode/
+
+# ─── Vercel ─────────────────────────────────────────────────
+.vercel/

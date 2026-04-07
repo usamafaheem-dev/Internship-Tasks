@@ -1,0 +1,38 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+/* Full page styles for sign-in */
+body {
+  overflow-x: hidden;
+}
+
+/* Prevent scrolling when sign-in or join-now pages are active */
+html:has(.signin-page),
+html:has(.join-now-page),
+body:has(.signin-page),
+body:has(.join-now-page) {
+  overflow: hidden !important;
+  height: 100vh !important;
+  width: 100vw !important;
+  position: fixed !important;
+}
+
+#root:has(.signin-page),
+#root:has(.join-now-page) {
+  height: 100vh !important;
+  width: 100vw !important;
+  overflow: hidden !important;
+}
+
+/* Ensure sign-in page takes full viewport */
+.App {
+  margin: 0;
+  padding: 0;
+}
