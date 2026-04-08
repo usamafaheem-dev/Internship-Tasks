@@ -1,5 +1,6 @@
 // src/context/CartContext.js
 import React, { createContext, useContext, useState } from "react";
+import toast from "react-hot-toast";
 
 const CartContext = createContext();
 
@@ -49,26 +50,29 @@ export const CartProvider = ({ children }) => {
   // Clear Cart function
   const clearCart = () => {
     setCart([]);
+    
   };
 
   // Cart mein total items count
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <CartContext.Provider
-      value={{
-        cart,
-        addToCart,
-        removeFromCart,
-        removeItem,
-        clearCart,
-        cartCount,
-        isLoading,
-        setIsLoading,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
+    <>
+      <CartContext.Provider
+        value={{
+          cart,
+          addToCart,
+          removeFromCart,
+          removeItem,
+          clearCart,
+          cartCount,
+          isLoading,
+          setIsLoading,
+        }}
+      >
+        {children}
+      </CartContext.Provider>
+    </>
   );
 };
 

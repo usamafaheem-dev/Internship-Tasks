@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
+import toast from "react-hot-toast";
 
 const PersonalForm = () => {
   const [step, setStep] = useState(1);
@@ -24,7 +25,7 @@ const PersonalForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Form submitted successfully!");
+    toast.success("Form submitted successfully!");
     setUserForm({
       firstName: "",
       lastName: "",

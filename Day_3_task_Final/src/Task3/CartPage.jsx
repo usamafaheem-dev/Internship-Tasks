@@ -2,6 +2,7 @@ import React from "react";
 import { useCart } from "./Context/CartContext";
 import { Trash2, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const CartPage = () => {
   const { cart, addToCart, removeFromCart, removeItem, clearCart } = useCart();
@@ -96,7 +97,10 @@ const CartPage = () => {
                 </p>
 
                 <button
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => {
+                    removeItem(item.id);
+                    toast.success("Product deleted!");
+                  }}
                   className="text-red-500 hover:text-red-700"
                 >
                   <Trash2 size={20} />
@@ -124,7 +128,8 @@ const CartPage = () => {
             </div>
 
             <button
-              onClick={() => alert("Proceeding to checkout...")}
+              onClick={() => toast.success("Proceeding to checkout...")}
+              
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-medium transition"
             >
               Proceed to Checkout
@@ -139,6 +144,7 @@ const CartPage = () => {
           </div>
         </div>
       </div>
+     
     </div>
   );
 };

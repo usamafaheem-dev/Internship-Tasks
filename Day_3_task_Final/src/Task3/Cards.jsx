@@ -3,6 +3,7 @@ import Products from "./Products"; // apna products array
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "./Context/CartContext";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 const Card = () => {
   const [products, setProducts] = useState(Products); // setProduct ki zarurat nahi agar sirf display karna hai
   const [buttonStatus, setButtonStatus] = useState({});
@@ -31,6 +32,7 @@ const Card = () => {
         [item.id]: "success",
       }));
 
+      toast.success("Added to cart!", { duration: 2000 });
       setTimeout(() => {
         setButtonStatus((prev) => {
           const updated = { ...prev };

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const Form = () => {
   const [userForm, setUserForm] = useState({
@@ -34,6 +35,7 @@ const Form = () => {
 
     setTimeout(() => {
       console.log(userForm);
+      toast.success("Form submitted successfully!");
       setUserForm({
         firstName: "",
         lastName: "",
