@@ -1,11 +1,12 @@
 import React from "react";
 import { useCart } from "./Context/CartContext";
 import { Trash2, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const CartPage = () => {
   const { cart, addToCart, removeFromCart, removeItem, clearCart } = useCart();
+  const navigate = useNavigate();
 
   const totalPrice = cart.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -128,8 +129,10 @@ const CartPage = () => {
             </div>
 
             <button
-              onClick={() => toast.success("Proceeding to checkout...")}
-              
+              onClick={() => {
+                toast.success("Proceeding to checkout...");
+                setTimeout(() => navigate("/"), 1500);
+              }}
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-medium transition"
             >
               Proceed to Checkout
