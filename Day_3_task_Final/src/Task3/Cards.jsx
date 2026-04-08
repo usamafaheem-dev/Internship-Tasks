@@ -5,9 +5,46 @@ import { useCart } from "./Context/CartContext";
 import { useNavigate } from "react-router-dom";
 const Card = () => {
   const [products, setProducts] = useState(Products); // setProduct ki zarurat nahi agar sirf display karna hai
-
-  const {addToCart} = useCart();
+  const [buttonStatus, setButtonStatus] = useState({});
+  const { addToCart } = useCart();
   const navigate = useNavigate();
+
+  const [status, setStatus] = useState("idle");
+  const timeoutRef = React.useRef(null);
+  const handleAdd = async (e, item) => {
+    e.stopPropagation();
+
+    if (buttonStatus[item.id] === "loading") return;
+
+    setButtonStatus((prev) => ({
+      ...prev,
+      [item.id]: "loading",
+    }));
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      addToCart(item);
+
+      setButtonStatus((prev) => ({
+        ...prev,
+        [item.id]: "success",
+      }));
+
+      setTimeout(() => {
+        setButtonStatus((prev) => {
+          const updated = { ...prev };
+          delete updated[item.id];
+          return updated;
+        });
+      }, 2000);
+    } catch (err) {
+      setButtonStatus((prev) => ({
+        ...prev,
+        [item.id]: "error",
+      }));
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
@@ -54,11 +91,27 @@ const Card = () => {
 
               {/* Add to Cart Button */}
               <button
-                onClick={(e) => { e.stopPropagation(); addToCart(item); }}
-                className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium py-2 md:py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 mt-4 text-sm md:text-base"
+                onClick={(e) => handleAdd(e, item)}
+                disabled={buttonStatus[item.id] === "loading"}
+                className="w-full bg-blue-600 text-white py-2 rounded-xl flex items-center justify-center gap-2"
               >
-                <ShoppingCart size={18} />
-                Add to Cart
+                {buttonStatus[item.id] === "loading" && (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Adding...
+                  </>
+                )}
+
+                {buttonStatus[item.id] === "success" && "Added ✓"}
+
+                {buttonStatus[item.id] === "error" && "Retry"}
+
+                {!buttonStatus[item.id] && (
+                  <>
+                    <ShoppingCart size={18} />
+                    Add to Cart
+                  </>
+                )}
               </button>
             </div>
           </div>
