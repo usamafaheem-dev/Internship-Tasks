@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import Stopwatch from "./StopWatch/StopWatch";
+import { LuxuryStopwatch as Stopwatch } from "./StopWatch/StopWatch";
 import Dom from "./Task2/Dom";
 import Scrool from "./Task2/Scrool";
 import Form from "./Task2/Focus";
