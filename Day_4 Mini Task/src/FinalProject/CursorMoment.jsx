@@ -1,25 +1,23 @@
+// CursorMoment.jsx  (ya jo bhi naam hai)
 import { useEffect, useState } from "react";
 
 export const usePointerPosition = () => {
-  const [position, setposition] = useState({
-    x: 0,
-    y: 0,
-  });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const mouseMOveHandler = (e) => {
-      setposition({
+    const handleMouseMove = (e) => {
+      setPosition({
         x: e.clientX,
         y: e.clientY,
       });
     };
 
-    window.addEventListener("mousemove", mouseMOveHandler);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     return () => {
-      window.removeEventListener("mousemove", mouseMOveHandler);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
-  return { position };
+  return position;
 };

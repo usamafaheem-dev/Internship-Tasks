@@ -1,43 +1,32 @@
-import React, { useRef, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import React, { useCallback, useRef, useState } from "react";
 
-const   Timer = () => {
+const Timer = () => {
   const [count, setCount] = useState(0);
 
   const countRef = useRef(null);
 
-  const handleStart = () => {
+  const handleStart = useCallback(() => {
     if (countRef.current) return;
 
     countRef.current = setInterval(() => {
       setCount((prev) => prev + 1);
     }, 1000);
-    toast.success(`Timer start`,);
-  };
+  }, []);
 
-  const handleStop = () => {
+  const handleStop = useCallback(() => {
     if (countRef.current) {
       clearInterval(countRef.current);
       countRef.current = null;
     }
-    toast.error(`Timer stop`);
-  };
+  }, []);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     if (countRef.current) {
       clearInterval(countRef.current);
       countRef.current = null;
     }
     setCount(0);
-    toast.error("Timer reset", {
-      icon: "👏",
-      style: {
-        borderRadius: "10px",
-        background: "#333",
-        color: "#fff",
-      },
-    });
-  };
+  }, []);
 
   return (
     <div className="border-2 w-75 h-85 bg-blue-100 flex justify-center items-center flex-col gap-4 border-blue-500 rounded ">
@@ -63,7 +52,6 @@ const   Timer = () => {
           Reset
         </button>
       </div>
-      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };

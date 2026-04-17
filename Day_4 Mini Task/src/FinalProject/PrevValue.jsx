@@ -2,32 +2,25 @@ import React, { useState, useRef, useEffect } from "react";
 
 const PreviousValueExample = () => {
   const [count, setCount] = useState(0);
-
-  // Previous value store karne ke liye ref
   const prevCountRef = useRef(0);
 
   useEffect(() => {
-    // Har render ke BAAD yeh chalega
-    // Yani abhi count jo hai wo "current" hai
-    // aur prevCountRef.current mein "pichhla" value hai
     prevCountRef.current = count;
-  }, [count]); // jab bhi count change ho, tab update karo
-
-  const previousCount = prevCountRef.current;
+  }, [count]);
 
   return (
-    <div className="border-2 w-75 h-85  bg-yellow-100 flex justify-center items-center flex-col  border-blue-500 rounded ">
-      <h2 className="text-medium font-bold">
-        Current Count: <span className="font-bold text-blue-600">{count}</span>
+    <div className="border-2 w-80 h-80 bg-yellow-100 flex justify-center items-center flex-col border-blue-500 rounded-xl shadow-lg p-6">
+      <h2 className="text-xl font-bold mb-3">
+        Current Count: <span className="text-blue-600">{count}</span>
       </h2>
-      <h2 className="text-medium font-bold">
+      <h2 className="text-xl font-bold mb-6">
         Previous Count:{" "}
-        <span className="font-bold text-red-600">{previousCount}</span>
+        <span className="text-red-600">{prevCountRef.current}</span>
       </h2>
 
       <button
-        onClick={() => setCount(count + 1)}
-        className="bg-pink-500 font-medium text-white px-5 py-2 mt-4 rounded"
+        onClick={() => setCount((prev) => prev + 1)}
+        className="bg-pink-500 hover:bg-pink-600 px-8 py-3 rounded-lg text-white font-bold transition"
       >
         Increment
       </button>
@@ -35,4 +28,4 @@ const PreviousValueExample = () => {
   );
 };
 
-export default PreviousValueExample;
+export default React.memo(PreviousValueExample);
