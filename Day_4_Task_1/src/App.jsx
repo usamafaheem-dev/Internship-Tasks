@@ -1,21 +1,30 @@
-import React from "react";
-import StateChange from "./Task5/StateChange";
-import { SaveButton, StatusOnline } from "./Task7/CustomHook";
-import InputUse from "./Task7/InputUse";
-import RefCount from "./FinalProject/RefCount";
-import PreviousValueExample from "./FinalProject/PrevValue";
-import Timer from "./FinalProject/Timer";
-import LuxuryStopwatch from "./StopWatch/StopWatch";
-import VideoPlayerParent from "./Task3/VideoPlayerParent";
+import React, { useState } from "react";
+import Items from "./Items";
 
 const App = () => {
+  "use memo";
+  const [count, setCount] = useState(0);
+
+  // const items = [
+  //   { id: 1, name: "Apple" },
+  //   { id: 2, name: "Banana" },
+  //   { id: 3, name: "Mango" },
+  // ];
+
+  console.log("i am parent");
+
   return (
-    <div className="">
-      {/* <PreviousValueExample /> */}
-      {/* <Timer /> */}
-      {/* <RefCount /> */}
-      <LuxuryStopwatch/>
-      <VideoPlayerParent/>
+    <div>
+      <h1>count : {count}</h1>
+      <button
+        className="bg-red-400 p-3 m-3"
+        onClick={() => setCount(count + 1)}
+      >
+        increase me{" "}
+      </button>
+
+      {/* Pass a static prop to Items to show memoization effect */}
+      <Items label="Static Child sd" />
     </div>
   );
 };
