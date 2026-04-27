@@ -4,6 +4,9 @@ import { useState } from "react";
 
 // get api
 
+const API_ROOT_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+const CRUD_BASE_URL = `${API_ROOT_URL}/items`;
+
 const refreshPage = () => {
   window.location.reload();
 };
@@ -28,7 +31,7 @@ export const CrudGet = () => {
       try {
         setLoading(true);
         setError("");
-        const response = await axios.get("http://localhost:5000/api/items");
+        const response = await axios.get(CRUD_BASE_URL);
         // const items = Array.isArray(response.data?.data) ? response.data.data : [];
         setData(response.data.data);
         console.log("data mil gia");
@@ -103,9 +106,7 @@ export const CrudGetSinglePro = () => {
     setError("");
 
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/items/${input}`,
-      );
+      const response = await axios.get(`${CRUD_BASE_URL}/${input}`);
       setData(response.data.data);
       console.log("data mil gia single proucts", response.data.data);
     } catch (error) {
@@ -190,7 +191,7 @@ export const CrudPost = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5000/api/items", {
+      const response = await axios.post(CRUD_BASE_URL, {
         ...input,
         price: Number(input.price),
       });
@@ -266,7 +267,7 @@ export const CruDel = () => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/items/${Number(input)}`,
+        `${CRUD_BASE_URL}/${Number(input)}`,
       );
       console.log("item delete ho gya", response.data.data);
       setInput("");
@@ -331,13 +332,10 @@ export const CrudUpdata = () => {
     setMessage("");
 
     try {
-      const response = await axios.put(
-        `http://localhost:5000/api/items/${input.id}`,
-        {
-          ...input,
-          price: Number(input.price),
-        },
-      );
+      const response = await axios.put(`${CRUD_BASE_URL}/${input.id}`, {
+        ...input,
+        price: Number(input.price),
+      });
       console.log("data upate ho gia", response.data.data);
       setMessage("Item update ho gaya.");
       refreshPage();
