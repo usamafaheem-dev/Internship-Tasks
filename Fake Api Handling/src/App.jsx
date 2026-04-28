@@ -19,11 +19,10 @@ const App = () => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <Routes>
-      
+        <Route path="/" element={<Navigate to="/products" replace />} />
         <Route path="/products" element={<AllProducts />} />
         <Route path="/jsonplaceholder" element={<JsonPlaceHolderData />} />
         <Route path="/jsonholderpost" element={<PlaceHolderPostApi />} />
-       
       </Routes>
     </div>
   );
